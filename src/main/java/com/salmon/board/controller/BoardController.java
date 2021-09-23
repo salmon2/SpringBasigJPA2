@@ -20,15 +20,17 @@ public class BoardController {
 
     //Test
     @GetMapping("/hello")
-    public String home(Model model){
-
-
+    public String hello(Model model){
         List<BoardListResponseDto> findBoardList = boardService.findAll();
 
         model.addAttribute("cnt", findBoardList);
         model.addAttribute("test", 2);
 
         return "hello";
+    }
+    @GetMapping("/")
+    public String home(Model model){
+        return readBoardList(model);
     }
 
     //Create Page Rendering
@@ -87,7 +89,6 @@ public class BoardController {
     @GetMapping("/board/delete")
     public String deleteBoard(@RequestParam(value = "id", required = true)Long id){
         boardService.delete(id);
-
 
         return "redirect:/board/List";
     }

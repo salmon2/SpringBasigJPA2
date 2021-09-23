@@ -29,11 +29,11 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="board : ${boardList}">
-                <td th:text="${board.getWriter()}">작성이</td>
-                <td th:text="${board.getTitle()}">제목</td>
-                <td th:text="${board.getCreatedAt()}">날짜</td>
-            </tr>
+                <tr th:onclick="'window.location.href = \'' + @{/board?id={id}(id=${board.getId()})} + '\''" th:each="board : ${boardList}">
+                    <td th:text="${board.getWriter()}">작성이</td>
+                    <td th:text="${board.getTitle()}">제목</td>
+                    <td th:text="${board.getCreatedAt()}">날짜</td>
+                </tr>
             </tbody>
         </table>
     </div>

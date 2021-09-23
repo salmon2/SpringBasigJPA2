@@ -9,7 +9,6 @@ import com.salmon.board.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,7 +31,7 @@ public class BoardController {
         return "hello";
     }
 
-    //Create Rendering
+    //Create Page Rendering
     @GetMapping("/board/save")
     public String saveBoardRendering(){
         return "addForm";
@@ -46,13 +45,14 @@ public class BoardController {
         return "redirect:/board/List";
     }
 
-    //Read One
-    @GetMapping("/board")
-    public BoardResponseDto readBoard(@RequestParam(value = "id", defaultValue = "0", required = true) Long id){
-        System.out.println("id = " + id);
-        BoardResponseDto findBoard = boardService.findById(id);
 
-        return findBoard;
+    //Read One Rendering
+    @GetMapping("/board")
+    public String readBoard(@RequestParam(value = "id", defaultValue = "0", required = true) Long id, Model model){
+        BoardResponseDto findBoard = boardService.findById(id);
+        model.addAttribute("board", findBoard);
+
+        return "board";
     }
 
     //Read List Rendering
@@ -65,8 +65,18 @@ public class BoardController {
         return "boardList";
     }
 
+    //Update Page Rendering
+    @GetMapping("/board/update")
+    public String updateBoardRendering(@RequestParam(value = "id", required = true)Long id, Model  model){
+        BoardResponseDto findBoard = boardService.findById(id);
+
+        model.addAttribute("board", findBoard);
+
+        return "editForm";
+    }
+
     //Update
-    @PutMapping("/board")
+    @PutMapping("/board/update")
     public Long updateBoard(@RequestParam(value = "id", required = true)Long id, @RequestBody BoardRequestDto boardRequestDto){
         System.out.println("id = " + id);
         System.out.println("boardRequestDto = " + boardRequestDto);

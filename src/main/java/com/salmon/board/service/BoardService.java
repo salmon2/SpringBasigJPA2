@@ -28,7 +28,7 @@ public class BoardService {
     //Create
     @Transactional
     public Board save(BoardRequestDto boardRequestDto){
-        Board newBoard = new Board(boardRequestDto.getTitle(), boardRequestDto.getContent());
+        Board newBoard = new Board(boardRequestDto.getWriter(), boardRequestDto.getTitle(), boardRequestDto.getContent());
         Board save = boardRepository.save(newBoard);
         return save;
     }
@@ -39,7 +39,9 @@ public class BoardService {
         List<BoardListResponseDto> boardListResponseDtoList = new ArrayList<>();
 
         for (Board board : findBoardList) {
-            BoardListResponseDto newBoardListResponseDto = new BoardListResponseDto(board.getTitle(), board.getName(), TimeToString(board.getCreatedAt()));
+            BoardListResponseDto newBoardListResponseDto =
+                    new BoardListResponseDto(board.getId(), board.getTitle(),
+                            board.getWriter(), TimeToString(board.getCreatedAt()));
             boardListResponseDtoList.add(newBoardListResponseDto);
         }
 
@@ -51,7 +53,8 @@ public class BoardService {
         Optional<Board> optional = boardRepository.findById(id);
         Board findBoard = optional.get();
 
-        BoardResponseDto findBoardResponseDto = new BoardResponseDto(findBoard.getTitle(), findBoard.getName(),
+        BoardResponseDto findBoardResponseDto = new BoardResponseDto(
+                findBoard.getId(), findBoard.getTitle(), findBoard.getWriter(),
                 findBoard.getContent(), TimeToString(findBoard.getCreatedAt()));
 
         return findBoardResponseDto;

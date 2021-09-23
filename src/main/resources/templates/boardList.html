@@ -2,8 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <link   th:href="@{/css/bootstrap.min.css}"
-            href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/bootstrap.min.css"
+          th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
 </head>
 <body>
 <div class="container" style="max-width: 600px">
@@ -14,7 +14,7 @@
         <div class="col">
             <button class="btn btn-primary float-end"
                     onclick="location.href='addForm.html'"
-                    th:onclick="|location.href='@{/boards/add}'|"
+                    th:onclick="|location.href='@{/board/save}'|"
                     type="button">게시글 등록</button>
         </div>
     </div>
@@ -23,18 +23,16 @@
         <table class="table">
             <thead>
             <tr>
-                <th>ID</th>
-                <th>글쓴이</th>
+                <th>작성이</th>
                 <th>제목</th>
-                <th>조회수</th>
+                <th>날짜</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="board : ${boards}">
-                <td><a href="board.html" th:href="@{/boards/{boardId}(boardId=${board.boardId})}" th:text="${board.boardId}">게시글 아이디</a></td>
-                <td><a href="board.html" th:href="@{|/boards/${board.boardId}|}" th:text="${board.name}">글쓴이</a></td>
-                <td th:text="${board.title}">제목</td>
-                <td th:text="${board.read}">1</td>
+            <tr th:each="board : ${boardList}">
+                <td th:text="${board.getWriter()}">작성이</td>
+                <td th:text="${board.getTitle()}">제목</td>
+                <td th:text="${board.getCreatedAt()}">날짜</td>
             </tr>
             </tbody>
         </table>

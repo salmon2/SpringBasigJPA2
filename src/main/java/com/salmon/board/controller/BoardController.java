@@ -21,15 +21,27 @@ public class BoardController {
     //Test
     @GetMapping("/hello")
     public String home(Model model){
-        model.addAttribute("cnt", 1);
+
+
+        List<BoardListResponseDto> findBoardList = boardService.findAll();
+
+        model.addAttribute("cnt", findBoardList);
         model.addAttribute("test", 2);
 
         return "hello";
     }
 
-    //Create
-    @PostMapping("/board")
+    //Create Rendering
+    @GetMapping("/board/save")
+    public String saveBoardRendering(){
+        return "addForm";
+    }
+
+    //Create Post
+    @PostMapping("/board/save")
     public Long saveBoard(@RequestBody BoardRequestDto boardRequestDto){
+        System.out.println("saveBoard");
+        System.out.println("boardRequestDto = " + boardRequestDto);
         Board save = boardService.save(boardRequestDto);
         return save.getId();
     }
@@ -43,11 +55,14 @@ public class BoardController {
         return findBoard;
     }
 
-    //Read List
+    //Read List Rendering
     @GetMapping("/board/List")
-    public List<BoardListResponseDto> readBoardList(){
+    public String readBoardList(Model model){
         List<BoardListResponseDto> findBoardList = boardService.findAll();
-        return findBoardList;
+
+        model.addAttribute("boardList", findBoardList);
+
+        return "boardList";
     }
 
     //Update

@@ -22,9 +22,7 @@ public class Board extends Timestamped {
 
     private String content;
 
-    private Integer read;
-
-    private String name;
+    private String writer;
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "member_id")
@@ -36,11 +34,10 @@ public class Board extends Timestamped {
         this.content = content;
     }
 
-    public Board(String title, String content, Integer read, String name) {
+    public Board(String title, String content, String writer) {
         this.title = title;
         this.content = content;
-        this.read = read;
-        this.name = name;
+        this.writer = writer;
     }
 
     //update

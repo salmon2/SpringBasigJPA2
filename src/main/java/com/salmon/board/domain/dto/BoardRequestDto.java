@@ -10,6 +10,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BoardRequestDto {
+    private String writer;
+
     private String title;
     private String content;
 }

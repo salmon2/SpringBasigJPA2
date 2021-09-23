@@ -26,7 +26,7 @@ public class SimpleListener implements ApplicationListener<ApplicationStartedEve
         transaction.begin();
 
         for(int i = 0; i <10; i++){
-            Board newBoard = new Board("new title " + i, "new contents " + i, 0, "writer");
+            Board newBoard = new Board("new title " + i, "new contents " + i,  "writer");
 
             em.persist(newBoard);
         }

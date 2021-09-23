@@ -7,14 +7,25 @@ import com.salmon.board.domain.dto.BoardRequestDto;
 import com.salmon.board.domain.dto.BoardResponseDto;
 import com.salmon.board.service.BoardService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+@Controller
 @RequiredArgsConstructor
 public class BoardController {
     private final BoardService boardService;
+
+    //Test
+    @GetMapping("/hello")
+    public String home(Model model){
+        model.addAttribute("cnt", 1);
+        model.addAttribute("test", 2);
+
+        return "hello";
+    }
 
     //Create
     @PostMapping("/board")

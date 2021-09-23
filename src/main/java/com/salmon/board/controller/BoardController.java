@@ -67,7 +67,7 @@ public class BoardController {
 
     //Update Page Rendering
     @GetMapping("/board/update")
-    public String updateBoardRendering(@RequestParam(value = "id", required = true)Long id, Model  model){
+    public String updateBoardRendering(@RequestParam(value = "id", required = true) Long id, Model  model){
         BoardResponseDto findBoard = boardService.findById(id);
 
         model.addAttribute("board", findBoard);
@@ -77,19 +77,19 @@ public class BoardController {
 
     //Update
     @PutMapping("/board/update")
-    public Long updateBoard(@RequestParam(value = "id", required = true)Long id, @RequestBody BoardRequestDto boardRequestDto){
-        System.out.println("id = " + id);
-        System.out.println("boardRequestDto = " + boardRequestDto);
-
+    public String updateBoard(@RequestParam(value = "id", required = true)Long id, @RequestBody @ModelAttribute BoardRequestDto boardRequestDto){
         Board updateBoard = boardService.update(id, boardRequestDto);
-        return updateBoard.getId();
+
+        return "boardList";
     }
 
     //Delete
-    @DeleteMapping("/board")
-    public Long deleteBoard(@RequestParam(value = "id", required = true)Long id){
+    @GetMapping("/board/delete")
+    public String deleteBoard(@RequestParam(value = "id", required = true)Long id){
         boardService.delete(id);
-        return id;
+
+
+        return "redirect:/board/List";
     }
 
 }

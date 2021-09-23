@@ -31,24 +31,24 @@
         function updating(){
             console.log("updating")
 
+            let boardId = $("#boardId").val()
             let title = $("#title").val()
             let content = $("#content").val()
 
             console.log(title)
             console.log(content)
-            console.log([[${board.getId()}]])
 
-            // $.ajax({
-            //     type:"PUT",
-            //     url:"/board/update?id="+[[${id}]],
-            //     data:{
-            //         title: title,
-            //         content: content
-            //     },
-            //     success: function(response){
-            //         window.location.href = '/board/List';
-            //     }
-            // })
+            $.ajax({
+                type:"PUT",
+                url:`/board/update?id=${boardId}`,
+                data:{
+                    title: title,
+                    content: content
+                },
+                success: function(response){
+                    window.location.href = '/board/List';
+                }
+            })
         }
     </script>
 </head>

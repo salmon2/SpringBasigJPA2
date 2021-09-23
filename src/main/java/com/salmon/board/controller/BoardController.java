@@ -28,6 +28,7 @@ public class BoardController {
 
         return "hello";
     }
+
     @GetMapping("/")
     public String home(Model model){
         return readBoardList(model);

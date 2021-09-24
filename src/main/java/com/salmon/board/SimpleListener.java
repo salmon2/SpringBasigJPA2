@@ -18,7 +18,6 @@ public class SimpleListener implements ApplicationListener<ApplicationStartedEve
     @Autowired
     private EntityManagerFactory entityManagerFactory;
 
-
     @Override
     public void onApplicationEvent(ApplicationStartedEvent event) {
         EntityManager em = entityManagerFactory.createEntityManager();
@@ -32,6 +31,5 @@ public class SimpleListener implements ApplicationListener<ApplicationStartedEve
         }
 
         em.getTransaction().commit();
-
     }
 }

@@ -48,7 +48,6 @@ public class BoardController {
         return "redirect:/board/List";
     }
 
-
     //Read One Rendering
     @GetMapping("/board")
     public String readBoard(@RequestParam(value = "id", defaultValue = "0", required = true) Long id, Model model){

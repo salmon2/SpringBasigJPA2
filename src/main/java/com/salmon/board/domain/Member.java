@@ -18,6 +18,7 @@ import static javax.persistence.FetchType.*;
 @Entity
 @NoArgsConstructor
 public class Member {
+
     @Id
     @GeneratedValue
     @Column(name = "member_id")
@@ -30,4 +31,5 @@ public class Member {
     @BatchSize(size = 100)
     @OneToMany(mappedBy = "member", fetch = LAZY, cascade = ALL)
     private Set<Board> boards = new HashSet<>();
+
 }

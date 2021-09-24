@@ -16,15 +16,15 @@ class BoardApplicationTests {
 
 	@Test
 	public void saveTest() throws Exception{
-	    //given
-	    BoardRequestDto boardRequestDto = new BoardRequestDto("test title", "test content");
-
-	    //when
-		Board saveBoard = boardService.save(boardRequestDto);
-
-		//then
-		boardService.findById(saveBoard.getId());
-		System.out.println("saveBoard = " + saveBoard);
+//	    //given
+//	    BoardRequestDto boardRequestDto = new BoardRequestDto("test title", "test content");
+//
+//	    //when
+//		Board saveBoard = boardService.save(boardRequestDto);
+//
+//		//then
+//		boardService.findById(saveBoard.getId());
+//		System.out.println("saveBoard = " + saveBoard);
 
 	}
 

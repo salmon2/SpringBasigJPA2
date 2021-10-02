@@ -14,7 +14,6 @@ import javax.persistence.EntityTransaction;
 @NoArgsConstructor
 @Component
 public class SimpleListener implements ApplicationListener<ApplicationStartedEvent> {
-    long id;
     @Autowired
     private EntityManagerFactory entityManagerFactory;
 

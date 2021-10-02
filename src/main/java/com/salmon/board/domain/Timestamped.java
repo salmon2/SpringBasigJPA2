@@ -22,7 +22,7 @@ public abstract class Timestamped {
     private LocalDateTime modifiedAt;
 
     public static String TimeToString(LocalDateTime dateTime){
-        String stringTime = dateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        String stringTime = dateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
         return stringTime;
     }
 

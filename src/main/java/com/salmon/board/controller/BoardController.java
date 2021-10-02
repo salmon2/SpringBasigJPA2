@@ -2,11 +2,15 @@ package com.salmon.board.controller;
 
 
 import com.salmon.board.domain.Board;
+import com.salmon.board.domain.User;
 import com.salmon.board.domain.dto.BoardListResponseDto;
 import com.salmon.board.domain.dto.BoardRequestDto;
 import com.salmon.board.domain.dto.BoardResponseDto;
+import com.salmon.board.security.UserDetailsImpl;
 import com.salmon.board.service.BoardService;
+import com.salmon.board.service.BoardServiceImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -42,8 +46,13 @@ public class BoardController {
 
     //Create Post
     @PostMapping("/board/save")
-    public String saveBoard(@RequestBody @ModelAttribute BoardRequestDto boardRequestDto){
-        Board save = boardService.save(boardRequestDto);
+    public String saveBoard(@RequestBody @ModelAttribute BoardRequestDto boardRequestDto,
+                            @AuthenticationPrincipal UserDetailsImpl userDetails){
+
+        User user = userDetails.getUser();
+        Board save = boardService.save(boardRequestDto, user);
+
+
 
         return "redirect:/board/List";
     }

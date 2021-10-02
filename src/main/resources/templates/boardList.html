@@ -9,6 +9,8 @@
     <meta property="og:description" content="게시판">
     <meta property="og:image" content="images/og_selectshop.png">
 
+    <style>
+    </style>
 </head>
 <body>
 <div class="container" style="max-width: 600px">
@@ -21,6 +23,11 @@
                     onclick="location.href='addForm.html'"
                     th:onclick="|location.href='@{/board/save}'|"
                     type="button">게시글 등록</button>
+        </div>
+        <div>
+            <form method="post" action="/user/logout">
+                <button class="btn btn-primary float-end" id="logout_botton" value="upvote">로그아웃</button>
+            </form>
         </div>
     </div>
     <hr class="my-4">

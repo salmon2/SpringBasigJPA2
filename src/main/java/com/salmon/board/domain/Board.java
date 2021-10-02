@@ -27,17 +27,18 @@ public class Board extends Timestamped {
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "member_id")
     @JsonIgnore
-    private Member member;
+    private User user;
 
     public Board(String title, String content) {
         this.title = title;
         this.content = content;
     }
 
-    public Board(String title, String content, String writer) {
+    public Board(String title, String content, String writer, User user) {
         this.title = title;
         this.content = content;
         this.writer = writer;
+        this.user = user;
     }
 
     //update

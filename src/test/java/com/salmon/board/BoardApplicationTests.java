@@ -1,8 +1,6 @@
 package com.salmon.board;
 
-import com.salmon.board.domain.Board;
-import com.salmon.board.domain.dto.BoardRequestDto;
-import com.salmon.board.service.BoardService;
+import com.salmon.board.service.BoardServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 class BoardApplicationTests {
 	@Autowired
-	private BoardService boardService;
+	private BoardServiceImpl boardService;
 
 	@Test
 	public void saveTest() throws Exception{

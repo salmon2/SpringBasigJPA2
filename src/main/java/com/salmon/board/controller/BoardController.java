@@ -9,6 +9,7 @@ import com.salmon.board.domain.dto.BoardResponseDto;
 import com.salmon.board.security.UserDetailsImpl;
 import com.salmon.board.service.BoardService;
 import com.salmon.board.service.BoardServiceImpl;
+import com.salmon.board.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -61,6 +62,8 @@ public class BoardController {
     @GetMapping("/board")
     public String readBoard(@RequestParam(value = "id", defaultValue = "0", required = true) Long id, Model model){
         BoardResponseDto findBoard = boardService.findById(id);
+
+
         model.addAttribute("board", findBoard);
 
         return "board";

@@ -3,9 +3,14 @@ package com.salmon.board.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.salmon.board.domain.dto.BoardRequestDto;
 import lombok.*;
+import org.hibernate.annotations.BatchSize;
 
 import javax.persistence.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import static javax.persistence.CascadeType.ALL;
 import static javax.persistence.FetchType.*;
 
 @Setter
@@ -28,6 +33,10 @@ public class Board extends Timestamped {
     @JoinColumn(name = "member_id")
     @JsonIgnore
     private User user;
+
+    @BatchSize(size = 100)
+    @OneToMany(mappedBy = "board", fetch = LAZY, cascade = ALL)
+    private Set<Comment> comments = new HashSet<>();
 
     public Board(String title, String content) {
         this.title = title;

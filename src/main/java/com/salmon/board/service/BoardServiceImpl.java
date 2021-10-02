@@ -2,11 +2,13 @@ package com.salmon.board.service;
 
 
 import com.salmon.board.domain.Board;
+import com.salmon.board.domain.Comment;
 import com.salmon.board.domain.User;
 import com.salmon.board.domain.dto.BoardListResponseDto;
 import com.salmon.board.domain.dto.BoardRequestDto;
 import com.salmon.board.domain.dto.BoardResponseDto;
 import com.salmon.board.repository.BoardRepository;
+import com.salmon.board.repository.CommentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -24,6 +26,7 @@ import static com.salmon.board.domain.Timestamped.TimeToString;
 public class BoardServiceImpl implements  BoardService{
 
     private final BoardRepository boardRepository;
+    private final CommentRepository commentRepository;
 
 
     //Create
@@ -61,9 +64,14 @@ public class BoardServiceImpl implements  BoardService{
         Optional<Board> optional = boardRepository.findById(id);
         Board findBoard = optional.get();
 
+        List<Comment> findCommentList = commentRepository.findAllByBoard(findBoard);
+
+
         BoardResponseDto findBoardResponseDto = new BoardResponseDto(
                 findBoard.getId(), findBoard.getTitle(), findBoard.getWriter(),
-                findBoard.getContent(), TimeToString(findBoard.getCreatedAt()));
+                findBoard.getContent(), TimeToString(findBoard.getCreatedAt()),
+                findCommentList
+        );
 
         return findBoardResponseDto;
     }

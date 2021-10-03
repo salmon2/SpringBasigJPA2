@@ -104,6 +104,19 @@
                 }
             })
         }
+        function commentDelete(commentId){
+            console.log("commentUpdating")
+
+            let boardId = $("#boardId").val()
+
+            $.ajax({
+                type:"GET",
+                url:"/comment/delete?id="+commentId,
+                success: function(response){
+                    window.location.href = '/board?id='+boardId;
+                }
+            })
+        }
 
 
     </script>
@@ -180,10 +193,10 @@
                 <td><input type="text" id="editCommentContent" value="내용" th:value="${comment.getContents()}"></td>
                 <td th:text="${comment.getCreatedAt()}">날짜</td>
                 <td class = "commentSmallButton" >
-                    <button th:id= "${comment.getId()}" onclick="commentUpdating(this.id)" class = "commentSmallButton w-100 btn btn-primary btn-lg">수정</button>
+                    <button th:onclick="commentUpdating([[${comment.getId()}]]);" class = "commentSmallButton w-100 btn btn-primary btn-lg">수정</button>
                 </td>
                 <td class = "commentSmallButton">
-                    <button class = "commentSmallButton w-100 btn btn-primary btn-lg">삭제</button>
+                    <button th:onclick="commentDelete([[${comment.getId()}]]);" class = "commentSmallButton w-100 btn btn-primary btn-lg">삭제</button>
                 </td>
             </tr>
 

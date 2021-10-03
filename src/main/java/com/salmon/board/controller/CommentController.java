@@ -34,6 +34,10 @@ public class CommentController {
 
 
     // Delete
+    @GetMapping("/comment/delete")
+    public void deleteBoard(@RequestParam(value = "id", required = true)Long id){
+        commentService.delete(id);
 
+    }
 
 }

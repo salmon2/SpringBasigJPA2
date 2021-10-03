@@ -6,10 +6,7 @@ import com.salmon.board.security.UserDetailsImpl;
 import com.salmon.board.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -27,8 +24,13 @@ public class CommentController {
         return saveComment;
     }
 
-
     // Update
+    @PutMapping("/comment/update")
+    public Comment commentUpdate(@RequestParam Long id, @RequestBody @ModelAttribute CommentRequestDto commentRequestDto){
+        Comment updateComment = commentService.update(id, commentRequestDto);
+
+        return updateComment;
+    }
 
 
     // Delete

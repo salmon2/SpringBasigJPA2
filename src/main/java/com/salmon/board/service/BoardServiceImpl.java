@@ -70,9 +70,12 @@ public class BoardServiceImpl implements  BoardService{
         List<CommentResponseDto> findCommentResponseDto = new ArrayList<>();
 
         for (Comment comment: findCommentList) {
-            CommentResponseDto commentResponseDto = new CommentResponseDto(
-                            comment.getUser().getUsername(), comment.getContents(),
-                    TimeToString(comment.getCreatedAt()));
+            CommentResponseDto commentResponseDto =
+                    new CommentResponseDto(
+                        comment.getId(),
+                        comment.getUser().getUsername(),
+                        comment.getContents(),
+                        TimeToString(comment.getCreatedAt()));
 
             findCommentResponseDto.add(commentResponseDto);
         }

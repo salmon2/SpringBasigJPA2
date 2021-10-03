@@ -21,7 +21,7 @@ public interface CommentService {
     // Read One
     public Comment findById(Long id);
     // Update
-    public Comment update(Long id, BoardRequestDto boardRequestDto);
+    public Comment update(Long id, CommentRequestDto commentRequestDto);
     // Delete
     public void delete(Long id);
 

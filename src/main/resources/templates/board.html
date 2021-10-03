@@ -49,6 +49,15 @@
             height:60px;
             margin-bottom: 10px;
         }
+        .commentSmallButton{
+            width: 5px;
+            margin-left: 5px;
+        }
+
+        #editCommentContent{
+            width: 133px;
+            height: 60px;
+        }
 
     </style>
     <script>
@@ -69,10 +78,34 @@
                     contents: commentContent
                 },
                 success: function(response){
-                    window.location.href = '/board/List';
+                    window.location.href = '/board?id='+boardId;
                 }
             })
         }
+
+        function commentUpdating(commentId){
+            console.log("commentUpdating")
+
+            let boardId = $("#boardId").val()
+            let editCommentContent = $("#editCommentContent").val()
+
+            console.log(editCommentContent);
+            console.log(commentId);
+
+            $.ajax({
+                type:"PUT",
+                url:"/comment/update?id="+commentId,
+                data:{
+                    boardId:null,
+                    contents:editCommentContent
+                },
+                success: function(response){
+                    window.location.href = '/board?id='+boardId;
+                }
+            })
+        }
+
+
     </script>
 </head>
 <body>
@@ -137,14 +170,23 @@
                 <th>작성이</th>
                 <th>내용</th>
                 <th>날짜</th>
+                <th>수정</th>
+                <th>삭제</th>
             </tr>
             </thead>
             <tbody>
             <tr  th:each="comment : ${board.getCommentList()}">
                 <td th:text="${comment.getWriter()}">작성이</td>
-                <td th:text="${comment.getContents()}">본문</td>
+                <td><input type="text" id="editCommentContent" value="내용" th:value="${comment.getContents()}"></td>
                 <td th:text="${comment.getCreatedAt()}">날짜</td>
+                <td class = "commentSmallButton" >
+                    <button th:id= "${comment.getId()}" onclick="commentUpdating(this.id)" class = "commentSmallButton w-100 btn btn-primary btn-lg">수정</button>
+                </td>
+                <td class = "commentSmallButton">
+                    <button class = "commentSmallButton w-100 btn btn-primary btn-lg">삭제</button>
+                </td>
             </tr>
+
             </tbody>
         </table>
     </div>
@@ -160,11 +202,12 @@
                 <button onclick="commentPosting()" class="commentButton w-100 btn btn-primary btn-lg">댓글 등록</button>
             </div>
         <div>
-
     </div>
 
 
-
 </div> <!-- /container -->
+
+
+
 </body>
 </html>

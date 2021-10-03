@@ -12,7 +12,9 @@ import com.salmon.board.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -44,8 +46,15 @@ public class CommentServiceImpl implements  CommentService{
     }
 
     @Override
-    public Comment update(Long id, BoardRequestDto boardRequestDto) {
-        return null;
+    @Transactional
+    public Comment update(Long id, CommentRequestDto commentRequestDto) {
+        Comment findComment = commentRepository.findById(id).orElseThrow(
+                () -> new NullPointerException("해당하는 아이디의 댓글이 없습니다.")
+        );
+
+        findComment.update(commentRequestDto);
+
+        return findComment;
     }
 
     @Override

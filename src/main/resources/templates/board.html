@@ -35,6 +35,28 @@
         <h2>게시글 상세</h2>
     </div>
 
+    <hr class="my-4">
+    <div class="row">
+        <div class="col">
+            <button class="w-100 btn btn-primary btn-lg"
+                    onclick="location.href='editForm.html'"
+                    th:onclick="'window.location.href = \'' + @{/board/update?id={id}(id=${board.getId()})} + '\''"
+                    type="button">게시글 수정</button>
+        </div>
+        <div class="col">
+            <button class="w-100 btn btn-secondary btn-lg"
+                    onclick="location.href='items.html'"
+                    th:onclick="'window.location.href = \'' + @{/board/delete?id={id}(id=${board.getId()})} + '\''"
+                    type="button">게시글 삭제</button>
+        </div>
+        <div class="col">
+            <button class="w-100 btn btn-secondary btn-lg"
+                    onclick="location.href='boards.html'"
+                    th:onclick="|location.href='@{/board/List}'|"
+                    type="button">목록으로</button>
+        </div>
+    </div>
+
     <h2 th:if="${param.status}" th:text="'저장 완료!'"></h2>
     <div>
         <label for="date">날짜</label>
@@ -62,29 +84,27 @@
         <input type="text" id="content" name="content" class="form-control"
                value="컨텐츠" th:value="${board.getContents()}" readonly>
     </div>
-
-    <hr class="my-4">
-    <div class="row">
-        <div class="col">
-            <button class="w-100 btn btn-primary btn-lg"
-                    onclick="location.href='editForm.html'"
-                    th:onclick="'window.location.href = \'' + @{/board/update?id={id}(id=${board.getId()})} + '\''"
-                    type="button">게시글 수정</button>
-        </div>
-        <div class="col">
-            <button class="w-100 btn btn-secondary btn-lg"
-                    onclick="location.href='items.html'"
-                    th:onclick="'window.location.href = \'' + @{/board/delete?id={id}(id=${board.getId()})} + '\''"
-                    type="button">게시글 삭제</button>
-        </div>
-        <div class="col">
-            <button class="w-100 btn btn-secondary btn-lg"
-                    onclick="location.href='boards.html'"
-                    th:onclick="|location.href='@{/board/List}'|"
-                    type="button">목록으로</button>
-        </div>
-
+    <div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>작성이</th>
+                <th>내용</th>
+                <th>날짜</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr  th:each="comment : ${board.getCommentList()}">
+                <td th:text="${comment.getWriter()}">작성이</td>
+                <td th:text="${comment.getContents()}">본문</td>
+                <td th:text="${comment.getCreatedAt()}">날짜</td>
+            </tr>
+            </tbody>
+        </table>
     </div>
+
+
+
 </div> <!-- /container -->
 </body>
 </html>

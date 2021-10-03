@@ -7,6 +7,7 @@ import com.salmon.board.domain.dto.BoardListResponseDto;
 import com.salmon.board.domain.dto.BoardRequestDto;
 import com.salmon.board.domain.dto.BoardResponseDto;
 import com.salmon.board.domain.dto.CommentRequestDto;
+import com.salmon.board.security.UserDetailsImpl;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.List;
 @Service
 public interface CommentService {
     // Create
-    public Comment save(CommentRequestDto commentRequestDto, Board board, User user);
+    public Comment save(CommentRequestDto commentRequestDto, UserDetailsImpl userDetails);
     // Read All
     public List<CommentRequestDto> findAll();
     // Read One

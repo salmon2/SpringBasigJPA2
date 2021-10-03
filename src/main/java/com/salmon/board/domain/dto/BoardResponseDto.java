@@ -20,5 +20,5 @@ public class BoardResponseDto {
     private String contents;
     private String createdAt;
 
-    private List<Comment> commentList;
+    private List<CommentResponseDto> commentList;
 }

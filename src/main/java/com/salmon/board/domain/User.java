@@ -47,6 +47,10 @@ public class User {
     @OneToMany(mappedBy = "user", fetch = LAZY, cascade = ALL)
     private Set<Board> boards = new HashSet<>();
 
+    @BatchSize(size = 100)
+    @OneToMany(mappedBy = "user", fetch = LAZY, cascade = ALL)
+    private Set<Comment> comments = new HashSet<>();
+
     public User(String username, String password, String email, UserRoleEnum role) {
         this.username = username;
         this.password = password;

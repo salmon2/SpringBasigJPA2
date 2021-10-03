@@ -7,6 +7,7 @@ import com.salmon.board.domain.User;
 import com.salmon.board.domain.dto.BoardListResponseDto;
 import com.salmon.board.domain.dto.BoardRequestDto;
 import com.salmon.board.domain.dto.BoardResponseDto;
+import com.salmon.board.domain.dto.CommentResponseDto;
 import com.salmon.board.repository.BoardRepository;
 import com.salmon.board.repository.CommentRepository;
 import lombok.RequiredArgsConstructor;
@@ -61,16 +62,25 @@ public class BoardServiceImpl implements  BoardService{
 
     //Read One
     public BoardResponseDto findById(Long id){
-        Optional<Board> optional = boardRepository.findById(id);
-        Board findBoard = optional.get();
+        Board findBoard = boardRepository.findById(id).orElseThrow(
+                () -> new IllegalAccessError("존재하는 게시글이 없습니다.")
+        );
 
         List<Comment> findCommentList = commentRepository.findAllByBoard(findBoard);
+        List<CommentResponseDto> findCommentResponseDto = new ArrayList<>();
 
+        for (Comment comment: findCommentList) {
+            CommentResponseDto commentResponseDto = new CommentResponseDto(
+                            comment.getUser().getUsername(), comment.getContents(),
+                    TimeToString(comment.getCreatedAt()));
+
+            findCommentResponseDto.add(commentResponseDto);
+        }
 
         BoardResponseDto findBoardResponseDto = new BoardResponseDto(
                 findBoard.getId(), findBoard.getTitle(), findBoard.getWriter(),
                 findBoard.getContent(), TimeToString(findBoard.getCreatedAt()),
-                findCommentList
+                findCommentResponseDto
         );
 
         return findBoardResponseDto;

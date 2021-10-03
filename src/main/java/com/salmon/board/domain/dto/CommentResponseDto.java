@@ -7,8 +7,8 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CommentRequestDto {
-    private Long boardId;
+public class CommentResponseDto {
+    private String writer;
     private String contents;
-
+    private String createdAt;
 }

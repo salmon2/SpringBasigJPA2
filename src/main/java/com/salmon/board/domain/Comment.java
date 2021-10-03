@@ -1,6 +1,8 @@
 package com.salmon.board.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.salmon.board.domain.dto.CommentRequestDto;
+import com.salmon.board.security.UserDetailsImpl;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -13,11 +15,10 @@ import static javax.persistence.FetchType.LAZY;
 @NoArgsConstructor
 public class Comment extends Timestamped {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String contents;
-
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "board_id")
@@ -28,5 +29,11 @@ public class Comment extends Timestamped {
     @JoinColumn(name = "user_id")
     @JsonIgnore
     private User user;
+
+    public Comment(String contents, Board board, User user) {
+        this.contents = contents;
+        this.board = board;
+        this.user = user;
+    }
 
 }

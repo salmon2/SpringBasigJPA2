@@ -2,6 +2,9 @@ package com.salmon.board.security;
 
 import com.salmon.board.domain.User;
 import com.salmon.board.domain.UserRoleEnum;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

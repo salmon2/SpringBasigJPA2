@@ -19,9 +19,8 @@ import static javax.persistence.FetchType.*;
 @NoArgsConstructor
 public class Board extends Timestamped {
 
-    @Id @GeneratedValue
-    @Column(name = "board_id")
-    private Long Id;
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
     private String title;
 

@@ -8,17 +8,21 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
+
     <meta charset="UTF-8">
     <title>로그인 페이지</title>
 </head>
 <body>
 <div id="login-form">
-    <div id="login-title">Log into Select Shop</div>
+    <div id="login-title">Log into Board List</div>
     <button id="login-kakao-btn" onclick="location.href='https://kauth.kakao.com/oauth/authorize?client_id=748b10e6e9d9cfe01a9690ccd96548d7&redirect_uri=http://localhost:8080/user/kakao/callback&response_type=code'">
         카카오로 로그인하기
     </button>
-    <button id="login-id-btn" onclick="location.href='/user/signup'">
+    <button id="login-id-btn" class ="btn" onclick="location.href='/user/signup'">
         회원 가입하기
+    </button>
+    <button class ="btn"onclick="location.href='/board/List'">
+        게시글 목록 가기
     </button>
     <form action="/user/login" method="post">
         <div class="login-id-label">아이디</div>
@@ -29,7 +33,8 @@
 
         <button id="login-id-submit">로그인</button>
     </form>
-    <div id="login-failed" style="display:none" class="alert alert-danger" role="alert">로그인에 실패하였습니다.</div>
+    <div id="login-failed" style="display:none" class="alert alert-danger" role="alert">닉네임 또는 패스워드를 확인해주세요</div>
+
 </div>
 </body>
 <script>

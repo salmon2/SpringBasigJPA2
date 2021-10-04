@@ -5,6 +5,7 @@ import com.salmon.board.domain.User;
 import com.salmon.board.domain.dto.BoardListResponseDto;
 import com.salmon.board.domain.dto.BoardRequestDto;
 import com.salmon.board.domain.dto.BoardResponseDto;
+import com.salmon.board.security.UserDetailsImpl;
 import org.springframework.data.domain.Sort;
 import org.springframework.transaction.annotation.Transactional;
 

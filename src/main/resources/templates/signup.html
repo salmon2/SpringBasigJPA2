@@ -43,7 +43,10 @@
         // username 중복 메시지 띄우기
         $("#document").ready(function(){
             console.log("ready")
+
             $("#login-id-submit").hide()
+            $("#passwordCheck").attr("readonly", true);
+
             let msg = "[[${msg}]]"
             if(msg != ""){
                 alert(msg)
@@ -72,23 +75,23 @@
             }
         }
 
-        // // 비밀번호 체크
-        // function usernameCheck(asValue) {
-        //     console.log("username Check")
-        //     var username = $("#username").val()
-        //
-        //     var regExp = "/"+username+"{4,10}$/";
-        //     if (!regExp.test(asValue)) {
-        //         console.log("비빌번호 불가능")
-        //         $("#help-id").text("아이디는 영문과 숫자, 일부 특수문자(._-) 사용 가능. 3-10자 길이만 가능합니다.")
-        //         $("#password").focus()
-        //     }
-        //     else{
-        //         console.log("비빌번호 가능")
-        //         $("#help-id").text("사용 가능한 아이디 입니다.")
-        //         $("#password").attr("readonly",true);
-        //     }
-        //}
+        // 비밀번호 체크
+        function passwordMethod(asValue) {
+            console.log("passwordMethod")
+            var username = $("#username").val()
+            var password = $("#password").val()
+
+            if(password.includes(username) || password.length < 4){
+                //유저네임 포함됨
+                $("#passwordCheck").attr("readonly", true);
+                $("#help-password").text("비밀번호에 유저네임 혹은 글자 수 4이상이 만족하지 않습니다.")
+            }
+            else{
+                $("#passwordCheck").attr("readonly", false);
+                $("#help-password").text("사용 가능한 비밀번호 입니다.")
+
+            }
+        }
 
         //비밀번호 확인 체크
         function passwordCheckMethod(){
@@ -163,11 +166,12 @@
         <p class="help-text" id = "help-id">아이디는 2-10자의 영문과 숫자와 일부 특수문자(._-)만 입력 가능합니다.</p>
 
         <div class="login-id-label">Password</div>
-        <input type="password" id = "password" name="password" class="login-input-box">
+        <input type="password" onchange="passwordMethod()" id = "password" name="password" class="login-input-box">
+        <p class="help-text"  id ="help-password" >최소 4자 이상이며, 닉네임과 같은 값이 포함되었있으면 불가능합니다.</p>
 
         <div class="login-id-label">Password Check</div>
         <input type="password" onchange="passwordCheckMethod()" id = "passwordCheck" name="passwordCheck" class="login-input-box">
-        <p class="help-text"  id ="help-check-password" ></p>
+        <p class="help-text"  id ="help-password-check"></p>
 
         <div class="login-id-label">E-mail</div>
         <input type="text" id = "email" name="email" placeholder="E-mail" class="login-input-box">

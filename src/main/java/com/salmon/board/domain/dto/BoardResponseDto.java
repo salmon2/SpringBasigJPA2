@@ -15,6 +15,7 @@ import java.util.List;
 public class BoardResponseDto {
     private Long id;
 
+    private Long userId;
     private String title;
     private String writer;
     private String contents;

@@ -13,6 +13,7 @@ import lombok.Setter;
 public class BoardListResponseDto {
     private Long id;
 
+    private Long userId;
     private String title;
     private String writer;
     private String createdAt;

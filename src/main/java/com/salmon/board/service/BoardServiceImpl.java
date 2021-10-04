@@ -10,6 +10,7 @@ import com.salmon.board.domain.dto.BoardResponseDto;
 import com.salmon.board.domain.dto.CommentResponseDto;
 import com.salmon.board.repository.BoardRepository;
 import com.salmon.board.repository.CommentRepository;
+import com.salmon.board.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -52,7 +53,7 @@ public class BoardServiceImpl implements  BoardService{
 
         for (Board board : findBoardList) {
             BoardListResponseDto newBoardListResponseDto =
-                    new BoardListResponseDto(board.getId(), board.getTitle(),
+                    new BoardListResponseDto(board.getId(), board.getUser().getId(), board.getTitle(),
                             board.getWriter(), TimeToString(board.getCreatedAt()));
             boardListResponseDtoList.add(newBoardListResponseDto);
         }
@@ -66,13 +67,14 @@ public class BoardServiceImpl implements  BoardService{
                 () -> new IllegalAccessError("존재하는 게시글이 없습니다.")
         );
 
-        List<Comment> findCommentList = commentRepository.findAllByBoard(findBoard);
+        List<Comment> findCommentList = commentRepository.findAllByBoard(findBoard, Sort.by(Sort.Direction.DESC, "createdAt"));
         List<CommentResponseDto> findCommentResponseDto = new ArrayList<>();
 
         for (Comment comment: findCommentList) {
             CommentResponseDto commentResponseDto =
                     new CommentResponseDto(
                         comment.getId(),
+                        comment.getUser().getId(),
                         comment.getUser().getUsername(),
                         comment.getContents(),
                         TimeToString(comment.getCreatedAt()));
@@ -81,7 +83,7 @@ public class BoardServiceImpl implements  BoardService{
         }
 
         BoardResponseDto findBoardResponseDto = new BoardResponseDto(
-                findBoard.getId(), findBoard.getTitle(), findBoard.getWriter(),
+                findBoard.getId(), findBoard.getUser().getId(), findBoard.getTitle(), findBoard.getWriter(),
                 findBoard.getContent(), TimeToString(findBoard.getCreatedAt()),
                 findCommentResponseDto
         );

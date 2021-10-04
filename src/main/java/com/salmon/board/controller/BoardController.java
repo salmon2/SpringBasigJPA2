@@ -25,7 +25,7 @@ public class BoardController {
 
     //Test
     @GetMapping("/hello")
-    public String hello(Model model){
+    public String hello(Model model, @AuthenticationPrincipal UserDetailsImpl userDetails){
         List<BoardListResponseDto> findBoardList = boardService.findAll();
 
         model.addAttribute("cnt", findBoardList);
@@ -36,7 +36,7 @@ public class BoardController {
 
     @GetMapping("/")
     public String home(Model model){
-        return readBoardList(model);
+        return "redirect:/board/List";
     }
 
     //Create Page Rendering
@@ -60,8 +60,18 @@ public class BoardController {
 
     //Read One Rendering
     @GetMapping("/board")
-    public String readBoard(@RequestParam(value = "id", defaultValue = "0", required = true) Long id, Model model){
+    public String readBoard(@RequestParam(value = "id", defaultValue = "0", required = true) Long id,
+                            Model model,
+                            @AuthenticationPrincipal UserDetailsImpl userDetails)
+    {
         BoardResponseDto findBoard = boardService.findById(id);
+
+        if(userDetails == null) {
+            model.addAttribute("userBackendId", null);
+        }
+        else{
+            model.addAttribute("userBackendId", userDetails.getUser().getId());
+        }
 
 
         model.addAttribute("board", findBoard);
@@ -73,6 +83,7 @@ public class BoardController {
     @GetMapping("/board/List")
     public String readBoardList(Model model){
         List<BoardListResponseDto> findBoardList = boardService.findAll();
+
 
         model.addAttribute("boardList", findBoardList);
 

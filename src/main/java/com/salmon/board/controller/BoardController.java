@@ -81,9 +81,15 @@ public class BoardController {
 
     //Read List Rendering
     @GetMapping("/board/List")
-    public String readBoardList(Model model){
+    public String readBoardList(Model model, @AuthenticationPrincipal UserDetailsImpl userDetails){
         List<BoardListResponseDto> findBoardList = boardService.findAll();
 
+        if(userDetails == null) {
+            model.addAttribute("userBackendId", 0);
+        }
+        else{
+            model.addAttribute("userBackendId", userDetails.getUser().getId());
+        }
 
         model.addAttribute("boardList", findBoardList);
 

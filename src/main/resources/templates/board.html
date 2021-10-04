@@ -34,7 +34,7 @@
             height: 200px;
             margin-bottom: 10px;
         }
-        #commentContainer{
+        .commentContainer{
             height: 100px;
             margin-bottom: 30px;
         }
@@ -109,11 +109,15 @@
             console.log("commentUpdating")
 
             let boardId = $("#boardId").val()
-            let editCommentContent = $("#editCommentContent").val()
+            let editCommentContent = $("#appendEditCommentContent").val()
 
             console.log(editCommentContent);
             console.log(commentId);
 
+            if(editCommentContent =="") {
+                alert("수정할 댓글의 내용을 작성해주세요")
+                return;
+            }
             $.ajax({
                 type:"PUT",
                 url:"/comment/update?id="+commentId,
@@ -126,6 +130,32 @@
                 }
             })
         }
+
+        function commentBox(contents, commentId){
+            console.log(contents)
+            console.log(commentId)
+
+            $("#commentTable").empty()
+
+            temp_html = `
+                <div class = "commentContainer">
+                    <hr class="my-4">
+                    <div class="row">
+                        <div class ="col commentInputBox" >
+                            <input id = "appendEditCommentContent" type="text" class = " form-control commentInputBox" name="commentContent"
+                                   placeholder="`+ contents +`">`+
+                        `</div>
+                        <div class ="col commentButton" >
+                            <button onclick="commentUpdating(`+commentId+
+                `)" class="commentButton w-100 btn btn-primary btn-lg">댓글 수정</button>
+                        </div>
+                    <div>
+                </div>`
+
+            $("#commentTable").append(temp_html)
+        }
+
+
 
         function commentDelete(commentId){
             console.log("commentUpdating")
@@ -143,7 +173,6 @@
                 })
             }
             else{
-
                 return;
             }
 
@@ -208,7 +237,7 @@
         <input type="text" id="content" name="content" class="form-control"
                value="컨텐츠" th:value="${board.getContents()}" readonly>
     </div>
-    <div>
+    <div id = "commentTable">
         <table class="table">
             <thead>
             <tr>
@@ -222,10 +251,10 @@
             <tbody>
             <tr  th:each="comment : ${board.getCommentList()}">
                 <td th:text="${comment.getWriter()}">작성이</td>
-                <td><input type="text" id="editCommentContent" value="내용" th:value="${comment.getContents()}"></td>
+                <td th:text="${comment.getContents()}">내용</td>
                 <td th:text="${comment.getCreatedAt()}">날짜</td>
                 <td th:if = "${userBackendId == comment.getUserId()}" class = "commentSmallButton" >
-                    <button th:onclick="commentUpdating([[${comment.getId()}]]);" class = "commentSmallButton w-100 btn btn-primary btn-lg">수정</button>
+                    <button th:onclick="commentBox([[${comment.getContents()}]], [[${comment.getId()}]]);" class = "commentSmallButton w-100 btn btn-primary btn-lg">수정</button>
                 </td>
                 <td th:if = "${userBackendId == comment.getUserId()}" class = "commentSmallButton">
                     <button th:onclick="commentDelete([[${comment.getId()}]]);" class = "commentSmallButton w-100 btn btn-primary btn-lg">삭제</button>
@@ -236,7 +265,7 @@
         </table>
     </div>
 
-    <div id = "commentContainer">
+    <div class = "commentContainer">
         <hr class="my-4">
         <div class="row">
             <div class ="col commentInputBox" >

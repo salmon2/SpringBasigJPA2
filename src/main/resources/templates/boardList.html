@@ -25,7 +25,7 @@
                     type="button">게시글 등록</button>
         </div>
         <div>
-            <form method="post" action="/user/logout">
+            <form th:if = "${userBackendId != 0}" method="post" action="/user/logout">
                 <button class="btn btn-primary float-end" id="logout_botton" value="upvote">로그아웃</button>
             </form>
         </div>

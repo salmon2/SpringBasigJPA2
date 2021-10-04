@@ -8,6 +8,14 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+
+    <script src="https://kit.fontawesome.com/fc2bb77ae0.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+
+
     <meta charset="UTF-8">
     <title>회원가입 페이지</title>
     <script>
@@ -24,6 +32,15 @@
                 box.style.display = "none";
             }
         }
+
+        $("#document").ready(function(){
+            console.log("ready")
+            let msg = "[[${msg}]]"
+            if(msg != ""){
+                alert(msg)
+            }
+
+        })
     </script>
 </head>
 <body>
@@ -45,6 +62,7 @@
             <input id="admin-token" type="password" name="adminToken" placeholder="관리자 암호" class="login-input-box" style="display:none">
         </div>
         <button id="login-id-submit">회원 가입</button>
+
     </form>
 </div>
 </body>

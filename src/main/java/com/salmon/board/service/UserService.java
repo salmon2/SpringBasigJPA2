@@ -7,6 +7,7 @@ import com.salmon.board.domain.User;
 import com.salmon.board.domain.UserRoleEnum;
 import com.salmon.board.domain.dto.KakaoUserInfoDto;
 import com.salmon.board.domain.dto.SignupRequestDto;
+import com.salmon.board.exception.UserNameDuplicationException;
 import com.salmon.board.repository.UserRepository;
 import com.salmon.board.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
@@ -37,12 +38,12 @@ public class UserService {
 
 
 
-    public void registerUser(SignupRequestDto requestDto) {
+    public void registerUser(SignupRequestDto requestDto) throws UserNameDuplicationException {
 // 회원 ID 중복 확인
         String username = requestDto.getUsername();
         Optional<User> found = userRepository.findByUsername(username);
         if (found.isPresent()) {
-            throw new IllegalArgumentException("중복된 사용자 ID 가 존재합니다.");
+            throw new UserNameDuplicationException("중복된 사용자 ID 가 존재합니다.");
         }
 
 // 패스워드 암호화

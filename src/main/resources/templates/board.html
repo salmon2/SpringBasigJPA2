@@ -61,6 +61,13 @@
 
     </style>
     <script>
+
+        $("#document").ready(function(){
+            console.log("hi")
+            console.log([[${userBackendId}]])
+        })
+
+
         function commentPosting(){
             console.log("commentPosting")
 
@@ -70,17 +77,32 @@
             console.log(boardId);
             console.log(commentContent);
 
-            $.ajax({
-                type:"POST",
-                url:"/comment/save",
-                data:{
-                    boardId: boardId,
-                    contents: commentContent
-                },
-                success: function(response){
-                    window.location.href = '/board?id='+boardId;
-                }
-            })
+            console.log([[${userBackendId}]])
+
+            if([[${userBackendId}]] == 0){
+                alert("로그인이 필요한 기능입니다.")
+                window.location.href = '/user/login';
+            }
+
+            if(commentContent ==""){
+                alert("댓글 내용을 입력해주세요")
+
+                window.location.href = '/board?id='+boardId;
+
+            }
+            else {
+                $.ajax({
+                    type: "POST",
+                    url: "/comment/save",
+                    data: {
+                        boardId: boardId,
+                        contents: commentContent
+                    },
+                    success: function (response) {
+                        window.location.href = '/board?id=' + boardId;
+                    }
+                })
+            }
         }
 
         function commentUpdating(commentId){
@@ -104,18 +126,26 @@
                 }
             })
         }
+
         function commentDelete(commentId){
             console.log("commentUpdating")
 
             let boardId = $("#boardId").val()
 
-            $.ajax({
-                type:"GET",
-                url:"/comment/delete?id="+commentId,
-                success: function(response){
-                    window.location.href = '/board?id='+boardId;
-                }
-            })
+            let result = confirm("정말로 삭제하시겠습니까?")
+            if(result == true){
+                $.ajax({
+                    type:"GET",
+                    url:"/comment/delete?id="+commentId,
+                    success: function(response){
+                        window.location.href = '/board?id='+boardId;
+                    }
+                })
+            }
+            else{
+                return;
+            }
+
         }
 
 
@@ -130,13 +160,14 @@
     <hr class="my-4">
     <div class="row">
         <div class="col">
-            <button class="w-100 btn btn-primary btn-lg"
+            <button th:if = "${userBackendId == board.getUserId()}" class="w-100 btn btn-primary btn-lg"
                     onclick="location.href='editForm.html'"
                     th:onclick="'window.location.href = \'' + @{/board/update?id={id}(id=${board.getId()})} + '\''"
                     type="button">게시글 수정</button>
         </div>
         <div class="col">
-            <button class="w-100 btn btn-secondary btn-lg"
+            <button th:if = "${userBackendId == board.getUserId()}"
+                    class="w-100 btn btn-secondary btn-lg"
                     onclick="location.href='items.html'"
                     th:onclick="'window.location.href = \'' + @{/board/delete?id={id}(id=${board.getId()})} + '\''"
                     type="button">게시글 삭제</button>
@@ -192,10 +223,10 @@
                 <td th:text="${comment.getWriter()}">작성이</td>
                 <td><input type="text" id="editCommentContent" value="내용" th:value="${comment.getContents()}"></td>
                 <td th:text="${comment.getCreatedAt()}">날짜</td>
-                <td class = "commentSmallButton" >
+                <td th:if = "${userBackendId == comment.getUserId()}" class = "commentSmallButton" >
                     <button th:onclick="commentUpdating([[${comment.getId()}]]);" class = "commentSmallButton w-100 btn btn-primary btn-lg">수정</button>
                 </td>
-                <td class = "commentSmallButton">
+                <td th:if = "${userBackendId == comment.getUserId()}" class = "commentSmallButton">
                     <button th:onclick="commentDelete([[${comment.getId()}]]);" class = "commentSmallButton w-100 btn btn-primary btn-lg">삭제</button>
                 </td>
             </tr>

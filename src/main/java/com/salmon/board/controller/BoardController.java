@@ -67,7 +67,7 @@ public class BoardController {
         BoardResponseDto findBoard = boardService.findById(id);
 
         if(userDetails == null) {
-            model.addAttribute("userBackendId", null);
+            model.addAttribute("userBackendId", 0);
         }
         else{
             model.addAttribute("userBackendId", userDetails.getUser().getId());

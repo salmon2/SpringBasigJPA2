@@ -21,24 +21,21 @@ spring과 jpa를 이용하여 간단한 게시판 프로젝트를 진행하였�
   
   
 ## 3. 실행 화면
-#### 1. 로그인 화면
+### 1. 로그인 화면
 ![image](https://user-images.githubusercontent.com/23234577/135990963-004f2776-df98-4d0d-9880-cff74e78f91a.png)
-
-#### 2. 회원가입 화면
+### 2. 회원가입 화면
 ![image](https://user-images.githubusercontent.com/23234577/136010089-e23b2d69-a045-4951-879b-79c129f75216.png)
-
-#### 3. 게시글 목록 화면
+### 3. 게시글 목록 화면
 ![image](https://user-images.githubusercontent.com/23234577/136010138-cae9a400-674c-429d-8b2b-e002123bc79c.png)
-
-#### 4-1. 다른 사람의 게시글 자세히 보기 화면
+### 4-1. 다른 사람의 게시글 자세히 보기 화면
 ![image](https://user-images.githubusercontent.com/23234577/136010216-45bec74d-b513-4998-adb4-cf3cba859048.png)
-#### 4-2. 자신의 게시글 자세히 보기 화면
+### 4-2. 자신의 게시글 자세히 보기 화면
 ![image](https://user-images.githubusercontent.com/23234577/136010339-263e1ec9-eb77-41d5-9608-b7dd49d376bf.png)
-#### 5. 게시글 수정 화면
+### 5. 게시글 수정 화면
 ![image](https://user-images.githubusercontent.com/23234577/136010385-5332e77d-35e7-40c4-abdd-6c391d79726c.png)
-#### 6. 게시글 등록 화면
+### 6. 게시글 등록 화면
 ![image](https://user-images.githubusercontent.com/23234577/136010418-8bdeb1c5-462f-4959-bd10-278ec7645a93.png)
-#### 7-1. 댓글 리스트
+### 7-1. 댓글 리스트
 ![image](https://user-images.githubusercontent.com/23234577/136010512-5f9e1e62-4d31-4582-b7d3-e76bca32b4f7.png)
 
 

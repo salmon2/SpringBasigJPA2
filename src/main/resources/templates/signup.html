@@ -42,7 +42,7 @@
 
         // username 중복 메시지 띄우기
         $("#document").ready(function(){
-            console.log("ready")
+            //console.log("ready")
 
             $("#login-id-submit").hide()
             $("#passwordCheck").attr("readonly", true);
@@ -55,21 +55,21 @@
 
         // 아이디 체크
         function usernameCheck(asValue) {
-            console.log("username Check")
+            //console.log("username Check")
             var regExp = /^(?=.*[a-zA-Z])[-a-zA-Z0-9_.]{3,10}$/;
-            console.log(regExp)
+           // console.log(regExp)
 
             if (!regExp.test(asValue)) {
-                console.log("유저네임 불가능")
+               // console.log("유저네임 불가능")
                 $("#help-id").text("아이디는 영문과 숫자, 일부 특수문자(._-) 사용 가능. 3-10자 길이만 가능합니다.")
                 $("#username").focus()
 
                 usernameResult = false;
             }
             else{
-                console.log("유너네임 가능")
+               // console.log("유너네임 가능")
                 $("#help-id").text("사용 가능한 아이디 입니다.")
-                $("#username").attr("readonly",true);
+
 
                 usernameResult = true
             }
@@ -77,13 +77,12 @@
 
         // 비밀번호 체크
         function passwordMethod(asValue) {
-            console.log("passwordMethod")
+           // console.log("passwordMethod")
             var username = $("#username").val()
             var password = $("#password").val()
 
             if(password.includes(username) || password.length < 4){
                 //유저네임 포함됨
-                $("#passwordCheck").attr("readonly", true);
                 $("#help-password").text("비밀번호에 유저네임 혹은 글자 수 4이상이 만족하지 않습니다.")
             }
             else{
@@ -95,16 +94,14 @@
 
         //비밀번호 확인 체크
         function passwordCheckMethod(){
-            console.log("passwordCheck")
+          //  console.log("passwordCheck")
 
             let password = $("#password").val()
             let passwordCheck = $("#passwordCheck").val()
 
             if(password == passwordCheck){
-                console.log("비밀번호도 맞음")
+             //   console.log("비밀번호도 맞음")
                 $("#help-check-password").text("비밀번호가 같습니다.")
-                $("#password").attr("readonly",true);
-                $("#passwordCheck").attr("readonly",true);
                 passwordResult = true;
 
             }
@@ -118,17 +115,21 @@
         //적합성 체크하기
         function signupCheck(){
             var checkBox = document.getElementById("signup-check");
-            console.log(checkBox)
+           // console.log(checkBox)
 
 
             if(checkBox.checked == true){
-                console.log('checkbox - true')
+              //  console.log('checkbox - true')
                 if(usernameResult == true){
-                    console.log("username true")
+                 //   console.log("username true")
                     if(passwordResult == true){
                         console.log("password result ture")
                         $("#help-signup").text("")
                         $("#login-id-submit").show()
+
+                        $("#password").attr("readonly",true);
+                        $("#passwordCheck").attr("readonly",true);
+                        $("#username").attr("readonly",true);
                     }
                     else{
                         $("#help-check-password").text("비밀번호가 틀립니다.")

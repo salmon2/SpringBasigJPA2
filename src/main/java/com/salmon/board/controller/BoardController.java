@@ -1,6 +1,4 @@
 package com.salmon.board.controller;
-
-
 import com.salmon.board.domain.Board;
 import com.salmon.board.domain.User;
 import com.salmon.board.domain.dto.BoardListResponseDto;
@@ -110,7 +108,6 @@ public class BoardController {
     @PutMapping("/board/update")
     public String updateBoard(@RequestParam(value = "id", required = true)Long id, @RequestBody @ModelAttribute BoardRequestDto boardRequestDto){
         Board updateBoard = boardService.update(id, boardRequestDto);
-
         return "boardList";
     }
 
@@ -118,8 +115,6 @@ public class BoardController {
     @GetMapping("/board/delete")
     public String deleteBoard(@RequestParam(value = "id", required = true)Long id){
         boardService.delete(id);
-
         return "redirect:/board/List";
     }
-
 }

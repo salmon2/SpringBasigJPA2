@@ -28,6 +28,10 @@
             <form th:if = "${userBackendId != 0}" method="post" action="/user/logout">
                 <button class="btn btn-primary float-end" id="logout_botton" value="upvote">로그아웃</button>
             </form>
+            <form th:unless="${userBackendId != 0}" method="get" action="/user/login">
+                <button class="btn btn-primary float-end" id="login_button" value="upvote">로그인</button>
+            </form>
+
         </div>
     </div>
     <hr class="my-4">

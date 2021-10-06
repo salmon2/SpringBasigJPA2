@@ -35,9 +35,9 @@ public class BoardServiceImpl implements  BoardService{
     @Transactional
     public Board save(BoardRequestDto boardRequestDto, User user){
         Board newBoard = new Board(
-                user.getUsername(),
                 boardRequestDto.getTitle(),
                 boardRequestDto.getContent(),
+                user.getUsername(),
                 user
         );
 

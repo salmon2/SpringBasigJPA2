@@ -31,7 +31,7 @@ public class SimpleListener implements ApplicationListener<ApplicationStartedEve
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
 
-        User testUser1 = new User("슈가1", passwordEncoder.encode("123"), "sugar1@sparta.com", UserRoleEnum.USER);
+        User testUser1 = new User("test", passwordEncoder.encode("1234"), "sugar1@sparta.com", UserRoleEnum.USER);
         User testUser2 = new User("슈가2", passwordEncoder.encode("123"), "sugar2@sparta.com", UserRoleEnum.USER);
         User admin = new User("root", passwordEncoder.encode("asdf"), "root@sparta.com", UserRoleEnum.ADMIN);
 

@@ -40,4 +40,5 @@ public class Comment extends Timestamped {
         this.contents = commentRequestDto.getContents();
         return this;
     }
+
 }

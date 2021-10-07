@@ -51,6 +51,9 @@ public class User {
     @OneToMany(mappedBy = "user", fetch = LAZY, cascade = ALL)
     private Set<Comment> comments = new HashSet<>();
 
+    @OneToOne(mappedBy = "user")
+    private Like like;
+
     public User(String username, String password, String email, UserRoleEnum role) {
         this.username = username;
         this.password = password;

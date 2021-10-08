@@ -178,6 +178,29 @@
 
         }
 
+        function likeUpOrDown(){
+            console.log("like")
+            let boardId = $("#boardId").val()
+            console.log(boardId)
+
+            $.ajax({
+                type:"POST",
+                url:"/like/save",
+                data:{
+                    boardId : boardId
+                },
+                success: function(response){
+                    if(response.msg == undefined) {
+                        alert("회원 서비스 입니다.")
+                    }
+                    else{
+                        alert(response.msg)
+                        window.location.href = '/board?id=' + boardId;
+                    }
+                }
+            })
+        }
+
 
     </script>
 </head>
@@ -225,6 +248,11 @@
         <label for="writer">작성자</label>
         <input type="text" id="writer" name="writer" class="form-control"
                value="1" th:value="${board.getWriter()}" readonly>
+    </div>
+    <div>
+        <label for="like">좋아요</label>
+        <input type="text" id="like" name="writer" class="form-control"
+               value="1" onclick="likeUpOrDown()" th:value="${board.getLikeSize()}" readonly>
     </div>
     <div>
         <label for="title">제목</label>

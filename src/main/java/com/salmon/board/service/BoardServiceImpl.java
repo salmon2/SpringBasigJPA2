@@ -3,6 +3,7 @@ package com.salmon.board.service;
 
 import com.salmon.board.domain.Board;
 import com.salmon.board.domain.Comment;
+import com.salmon.board.domain.Like;
 import com.salmon.board.domain.User;
 import com.salmon.board.domain.dto.BoardListResponseDto;
 import com.salmon.board.domain.dto.BoardRequestDto;
@@ -10,6 +11,7 @@ import com.salmon.board.domain.dto.BoardResponseDto;
 import com.salmon.board.domain.dto.CommentResponseDto;
 import com.salmon.board.repository.BoardRepository;
 import com.salmon.board.repository.CommentRepository;
+import com.salmon.board.repository.LikeRepository;
 import com.salmon.board.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
@@ -29,6 +31,7 @@ public class BoardServiceImpl implements  BoardService{
 
     private final BoardRepository boardRepository;
     private final CommentRepository commentRepository;
+    private final LikeRepository likeRepository;
 
 
     //Create
@@ -70,6 +73,10 @@ public class BoardServiceImpl implements  BoardService{
         List<Comment> findCommentList = commentRepository.findAllByBoard(findBoard, Sort.by(Sort.Direction.DESC, "createdAt"));
         List<CommentResponseDto> findCommentResponseDto = new ArrayList<>();
 
+        List<Like> findLike = likeRepository.findAllByBoard(findBoard);
+        Long likeSize = Long.valueOf(findLike.size());
+
+
         for (Comment comment: findCommentList) {
             CommentResponseDto commentResponseDto =
                     new CommentResponseDto(
@@ -85,7 +92,7 @@ public class BoardServiceImpl implements  BoardService{
         BoardResponseDto findBoardResponseDto = new BoardResponseDto(
                 findBoard.getId(), findBoard.getUser().getId(), findBoard.getTitle(), findBoard.getWriter(),
                 findBoard.getContent(), TimeToString(findBoard.getCreatedAt()),
-                findCommentResponseDto
+                findCommentResponseDto, likeSize
         );
 
         return findBoardResponseDto;

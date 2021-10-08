@@ -37,11 +37,8 @@ public class Board extends Timestamped {
     @OneToMany(mappedBy = "board", fetch = LAZY, cascade = ALL)
     private Set<Comment> comments = new HashSet<>();
 
-    @OneToOne(mappedBy = "board")
-    private Like like;
-
-
-
+    @OneToMany(mappedBy = "board", fetch = LAZY, cascade = ALL)
+    private Set<Like> like;
 
 
     public Board(String title, String content) {

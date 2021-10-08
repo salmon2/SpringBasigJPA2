@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+import static javax.persistence.FetchType.LAZY;
+
 @Entity
 @Getter
 @NoArgsConstructor
@@ -16,10 +18,12 @@ public class Like {
     @GeneratedValue
     private Long id;
 
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "board_id")
     private Board board;
 
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
 
     public Like(Board board, User user) {

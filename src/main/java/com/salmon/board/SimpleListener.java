@@ -1,9 +1,6 @@
 package com.salmon.board;
 
-import com.salmon.board.domain.Board;
-import com.salmon.board.domain.Comment;
-import com.salmon.board.domain.User;
-import com.salmon.board.domain.UserRoleEnum;
+import com.salmon.board.domain.*;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
@@ -37,6 +34,7 @@ public class SimpleListener implements ApplicationListener<ApplicationStartedEve
 
         em.persist(testUser1);
         em.persist(testUser2);
+        em.persist(admin);
 
         for(int i = 0; i <10; i++){
             Board newBoard = new Board("new title " + i, "new contents " + i,  "writer " + i, testUser1);
@@ -50,6 +48,11 @@ public class SimpleListener implements ApplicationListener<ApplicationStartedEve
 
             }
 
+            Like like1 = new Like(newBoard, testUser1);
+            em.persist(like1);
+
+            Like like2 = new Like(newBoard, testUser2);
+            em.persist(like2);
         }
         em.getTransaction().commit();
 

@@ -21,5 +21,8 @@ public class BoardResponseDto {
     private String contents;
     private String createdAt;
 
+
     private List<CommentResponseDto> commentList;
+    private Long likeSize;
+
 }

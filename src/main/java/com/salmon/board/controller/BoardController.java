@@ -4,10 +4,11 @@ import com.salmon.board.domain.User;
 import com.salmon.board.domain.dto.BoardListResponseDto;
 import com.salmon.board.domain.dto.BoardRequestDto;
 import com.salmon.board.domain.dto.BoardResponseDto;
+import com.salmon.board.domain.dto.MsgResponseDto;
 import com.salmon.board.security.UserDetailsImpl;
 import com.salmon.board.service.BoardService;
-import com.salmon.board.service.BoardServiceImpl;
-import com.salmon.board.service.CommentService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,7 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
+@Api(tags={"게시판 관련 APi"})
 public class BoardController {
     private final BoardService boardService;
 
@@ -45,15 +47,16 @@ public class BoardController {
 
     //Create Post
     @PostMapping("/board/save")
-    public String saveBoard(@RequestBody @ModelAttribute BoardRequestDto boardRequestDto,
-                            @AuthenticationPrincipal UserDetailsImpl userDetails){
+    public MsgResponseDto saveBoard(@RequestBody @ModelAttribute BoardRequestDto boardRequestDto,
+                                    @AuthenticationPrincipal UserDetailsImpl userDetails){
 
         User user = userDetails.getUser();
         Board save = boardService.save(boardRequestDto, user);
 
+        MsgResponseDto msgResponseDto = new MsgResponseDto("게시글 저장에 성공하였습니다.");
 
 
-        return "redirect:/board/List";
+        return msgResponseDto;
     }
 
     //Read One Rendering

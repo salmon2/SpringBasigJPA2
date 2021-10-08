@@ -45,6 +45,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/board/List").permitAll()
                 .antMatchers("/board").permitAll()
 
+                .antMatchers(
+                        "/user/signup",
+                        "/user/login",
+                        "/exception/**",
+                        "/item/**",
+                        "/v2/api-docs",
+                        "/configuration/**",
+                        "/swagger*/**",
+                        "/webjars/**").permitAll()
+
                 // 그 외 어떤 요청이든 '인증'
                 .anyRequest().authenticated()
                 .and()

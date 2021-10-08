@@ -4,12 +4,14 @@ import com.salmon.board.domain.Comment;
 import com.salmon.board.domain.dto.CommentRequestDto;
 import com.salmon.board.security.UserDetailsImpl;
 import com.salmon.board.service.CommentService;
+import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
+@Api(tags={"댓글 관련 APi"})
 public class CommentController {
     private final CommentService commentService;
 

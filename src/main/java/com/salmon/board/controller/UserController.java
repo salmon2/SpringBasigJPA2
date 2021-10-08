@@ -5,6 +5,7 @@ import com.salmon.board.domain.dto.SignupRequestDto;
 import com.salmon.board.exception.UserNameDuplicationException;
 import com.salmon.board.service.KakaoUserService;
 import com.salmon.board.service.UserService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
+@Api(tags={"유저 관련 APi"})
 public class UserController {
 
     private final UserService userService;

@@ -15,6 +15,7 @@ import java.util.List;
 public class BoardResponseDto {
     private Long id;
 
+    //게시판 정보들
     private Long userId;
     private String title;
     private String writer;
@@ -22,6 +23,7 @@ public class BoardResponseDto {
     private String createdAt;
 
 
+    //comment 정보들
     private List<CommentResponseDto> commentList;
     private Long likeSize;
 
